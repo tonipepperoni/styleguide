@@ -57,6 +57,7 @@ type Role {
 ### Vuex ORM
 1. Make sure you use camelCase when naming the entity, this is not the same as Laravel snake_case
 2. You have to also create a pivot model for vuex, you don't need to do this in graphql/laravel
+3. Use this.increment() for primary keys (not for foreign), when you create the model and persis it, it will change this auto generated id with the one from the server
 
 ```javascript
 import { Model } from '@vuex-orm/core'
@@ -71,7 +72,7 @@ export default class Role extends Model {
 
   static fields () {
     return {
-      id: this.attr(null),
+      id: this.increment(),
       name: this.string(''),
       menus: this.belongsToMany(Menu, MenuRole, 'role_id', 'menu_id')
     }
@@ -88,7 +89,7 @@ export default class Menu extends Model {
 
   static fields() {
     return {
-      id: this.attr(null),
+      id: this.increment(),
       deleted_at: this.attr(null),
       created_at: this.attr(null),
       updated_at: this.attr(null),
