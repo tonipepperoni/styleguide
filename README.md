@@ -1,7 +1,7 @@
 ## Code Style
 
 ### Laravel
-
+1. Always define polymorphic relationships here and follow proper laravel style-guide
 ```php
 class Menu extends Model
 {
@@ -50,6 +50,7 @@ class Role extends \Spatie\Permission\Models\Role
 1. Always use ID! when representing primary keys or foreign keys
 2. Denote [] for array/list data in the case of Many objects
 3. Use ! only when field is non nullable in database schema and required
+4. It's not necessary to define polymorphic relationships but always query the fields commentable_id, commentable_type, and use it for inputs. 
 ```
 
 type Menu {
@@ -69,6 +70,12 @@ type Role {
     menus: [Menu]! @belongsToMany
 }
 
+type CreateCommentInput {
+    commentable_id: ID!
+    commentable_type: String!
+    comment_body: String!
+}
+
 type Comment {
     id: ID!
     commentable_id: ID!
@@ -84,6 +91,7 @@ type Comment {
 1. Make sure you use camelCase when naming the entity, this is not the same as Laravel snake_case
 2. You have to also create a pivot model for vuex, you don't need to do this in graphql/laravel
 3. Use this.increment() for primary keys (not for foreign), when you create the model and persis it, it will change this auto generated id with the one from the server
+4. Always reference the polymorphic relationship and it's fields.
 
 ```javascript
 import { Model } from '@vuex-orm/core'
