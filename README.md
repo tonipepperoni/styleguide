@@ -18,7 +18,7 @@ class Menu extends Model
     
     public function comments(): MorphToMany
     {
-        return $this->morphToMany(Comment:class);
+        return $this->morphMany(Comment:class);
     }
 } 
 
