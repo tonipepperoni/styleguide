@@ -15,7 +15,23 @@ class Menu extends Model
     {
         return $this->belongsToMany(Role::class);
     }
-}   
+    
+    public function commentable(): MorphToMany
+    {
+        return $this->morphToMany(Comment:class);
+    }
+} 
+
+class Comment extends Model 
+{
+        protected $table= 'comments';
+        protected $fillable = ['id', 'commetable_id', 'commentable_type', 'comment_body', 'created_at', 'deleted_at'];
+        
+        protected function commentable()
+        {
+            return $this->morphTo()
+        }
+}
 ```
 
 
@@ -42,7 +58,8 @@ type Menu {
     display_name: String!
     link: String!
     icon: String!
-    order: Int! 
+    order: Int!
+    comments: [Comment]
 }
 
 
@@ -50,6 +67,15 @@ type Role {
     id: ID!
     name: String!
     menus: [Menu]! @belongsToMany
+}
+
+type Comment {
+    id: ID!
+    commentable_id: ID!
+    commentable_type: String!
+    comment_body: String
+    created_at: String
+    updated_at: String  
 }
 
 ```
@@ -74,7 +100,22 @@ export default class Role extends Model {
     return {
       id: this.increment(),
       name: this.string(''),
-      menus: this.belongsToMany(Menu, MenuRole, 'role_id', 'menu_id')
+      menus: this.belongsToMany(Menu, MenuRole, 'role_id', 'menu_id'),
+      comments: this.morphMany(Comment, 'commentable_id', 'commentable_type')
+
+    }
+  }
+}
+
+class Comment extends Model {
+  static entity = 'comments'
+
+  static fields () {
+    return {
+      id: this.attr(null),
+      comment_body: this.attr(''),
+      commentable_id: this.attr(null),
+      commentable_type: this.attr(null)
     }
   }
 }
