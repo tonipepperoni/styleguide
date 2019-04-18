@@ -70,6 +70,27 @@ type Role {
     menus: [Menu]! @belongsToMany
 }
 
+type CommentInputFilter {
+    id: ID @eq
+    id_not: ID @neq
+    id_like: ID @like
+    name: String @eq  
+    name_not: ID @neq
+    name_like: ID @like
+    display_name: String @eq
+    display_name_not: String @neq
+    display_like: Sring @like
+    link: String @eq
+    link_not: String @neq
+    link_like: String @like
+    icon: String @eq
+    icon_not: String @neq
+    icon_like: String @like
+    order: Int @eq   
+    order_not: String @neq
+    order_like: String @like
+}
+
 type CreateCommentInput {
     commentable_id: ID!
     commentable_type: String!
