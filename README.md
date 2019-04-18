@@ -111,6 +111,7 @@ extend type Mutation {
      updateComment(comment: UpdateCommentInput @spread, id: ID): Comment! @update
      deleteComment(id: ID!): Comment! @delete
      comments(filter: CommentFilterInput @spread): [Comment!]! @paginate
+     comment(id: ID! @eq): Comment! @find(model: "App\\Models\\Comments\Comment")
 }
 
 ```
