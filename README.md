@@ -16,7 +16,7 @@ class Menu extends Model
         return $this->belongsToMany(Role::class);
     }
     
-    public function comments(): MorphToMany
+    public function comments(): MorphMany
     {
         return $this->morphMany(Comment:class, 'commentable');
     }
