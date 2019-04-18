@@ -89,7 +89,7 @@ extend type Mutation {
      createComment(comment: CreateCommentInput @spread): Comment! @create
      updateComment(comment: UpdateCommentInput @spread, id: ID): Comment! @update
      deleteComment(id: ID!): Comment! @delete
-     comments(filter: CommentFilterInput @filter): [Comment!]! @paginate
+     comments(filter: CommentFilterInput @spread): [Comment!]! @paginate
 }
 
 ```
