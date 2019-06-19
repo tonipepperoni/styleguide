@@ -167,7 +167,7 @@ export default class Menu extends Model {
 
   static fields() {
     return {
-      id: this.increment(),
+      id: this.attr(null),
       deleted_at: this.attr(null),
       created_at: this.attr(null),
       updated_at: this.attr(null),
